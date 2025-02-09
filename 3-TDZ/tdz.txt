@@ -1,0 +1,49 @@
+// TDZ :-
+// --> Temporal Dead Zone is the time between when a variable is hoisted when it is initilized with a value\
+// --> Apply only let & const only ( Not var )
+// --> Accissible the varible before declaretion "result in a ReferenceError"
+
+
+// Let :-  reference error : Cannot access "a" before initilization
+console.log(a);  
+let a = 10;
+console.log(a)// output 10;
+// reason : 
+// --> let a is hoisted but it's in the TDZ
+// --> accessing a before this line causes Reference error 
+
+
+// Const :-
+//--> Reference Error Cannot access "n" before initilization
+
+console.log(n);
+const n = 10;
+// --> Same behaviour as let,
+
+
+// 3. Var :-
+//--> var is hoisted and initilized with undefined , so no Reference Error
+
+console.log(x);
+
+var x = "i am a tdz using var";
+console.log(x);
+
+
+// 4. TDZ in Block : Reference error
+//--> y is in TDZ inside the { }
+{
+    console.log(y) // Reference Error
+
+    let y = 30;
+    console.log(y); // 30
+}
+
+
+// 5. TDZ in Function : Reference Errir
+//-->
+function tdzFunction() {
+    console.log(p); // Reference Error
+    let p = 50;
+}
+tdzFunction()
