@@ -1,0 +1,89 @@
+// Closure :-
+// --> Closure in JavaScript is a combination of a function and the lexical environment (scope).
+// --> This happens because of lexical scoping, where inner functions have access to outer function variables.
+
+// Basic example 
+function outer() {
+  let outerVar = "i am a outer";
+  function inner() {
+    console.log(outerVar); // can access outervar
+  }
+  // This is a closure because innerFunction still has access to outerVar.
+
+  return inner;
+}
+const myClosure = outer();
+myClosure() // i am a outer
+
+
+
+// 2. Closure with Private Variables
+
+function outer() {
+    let count = 0;  // declare private variable
+    return function inner() {
+        count++; // modify private Variable
+        console.log(count)
+    }
+}
+// --> The inner function remembers count, even after outer() has finished.
+// --> Each call to increment() increases count and keeps track of its state
+let increment = outer();
+increment() // 1
+increment() // 2
+increment() // 3
+
+
+
+// 3. Closure With Parameter
+// -->
+function multipliyer(factor) {
+    return function(number) {
+        return factor * number;
+    }
+}
+
+let multiVar = multipliyer(4);
+console.log(multiVar(5));
+
+
+// Ex.2  : divisible
+function num1(n) {
+    return function(o) {
+        return n / o;
+    }
+}
+const num1var = num1(25);
+console.log(num1var(4));
+
+
+// 1. Closures in Loops using ( let )
+
+// Ex. 1
+// --> let creates a new block-scoped variable for each iteration, so each function remembers the correct value of i.
+for(let i = 0; i <= 5; i++) {
+    setTimeout(() => {
+        console.log(i)
+    }, 1000)   // output 1,2,3,4,5
+}
+
+
+// 2. Closures in Loops (Using var - Fix with IIFE)
+
+for (var i = 0; i<= 5; i++) {
+    setTimeout(() => {
+        console.log(i)
+    },1000) 
+}
+// output : 6 6 6 6 6 6 
+
+
+// 3 Fix using an IIFE (Immediately Invoked Function Expression):
+// --> The IIFE (function(x) { ... })(i) creates a new scope where x stores the correct value of i.
+for(var i = 0; i<=5; i++) {
+    (function(x) {
+        setTimeout(function() {
+            console.log(x);
+        },1000)
+    })(i)    // output 1 2 3 4 5
+}
